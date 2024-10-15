@@ -11,11 +11,6 @@
             margin: 10px 0; /* مسافة بين الصور */
         }
 
-        img {
-            display: block;
-            margin: 10px 0;
-        }
-
         #content {
             display: none; /* إخفاء المحتوى في البداية */
         }
@@ -27,89 +22,126 @@
         a {
             font-size: 6vw; /* جعل حجم الروابط متجاوب مع الشاشة */
         }
+
+        /* تصميم النافذة المخصصة لإدخال كلمة المرور */
+        .password-popup {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* خلفية شفافة */
+            z-index: 1000;
+            flex-direction: column;
+        }
+
+        .password-popup input {
+            font-size: 2em;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .password-popup button {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .password-popup h2 {
+            font-size: 3em;
+            color: white;
+        }
     </style>
 </head>
 <body>
+    <div class="password-popup" id="passwordPopup">
+        <h2>Please Enter the Password:</h2>
+        <input type="password" id="passwordInput" placeholder="Enter password" />
+        <button onclick="checkPassword()">Submit</button>
+    </div>
+
     <h1 id="welcomeText"></h1>
     <div id="content"></div> <!-- حاوية للمحتوى -->
     
     <script>
-        // الحصول على كلمة المرور من المستخدم
-        const password = prompt("Please Enter the password: ");
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
 
-        // نصوص معكوسة
-        const reversedText = "evah uoy dna sdrow sdrawkcab, gnimoc a ma I";
-        const originalText = "the images below are taken from random videos I have.";
+            // نصوص معكوسة
+            const reversedText = "evah uoy dna sdrow sdrawkcab, gnimoc a ma I";
+            const originalText = "the images below are taken from random videos I have.";
 
-        // تحقق من كلمة المرور
-        if (password === "111") {
-            document.getElementById("welcomeText").innerText = originalText; // إظهار النص الأصلي
-            initializeContent(); // استدعاء الدالة لبدء التنفيذ
-        } else {
-            alert("Incorrect password!"); // إذا كانت كلمة المرور غير صحيحة
-            document.getElementById("welcomeText").innerText = reversedText; // إظهار النص المعكوس
+            // تحقق من كلمة المرور
+            if (password === "111") {
+                document.getElementById("welcomeText").innerText = originalText; // إظهار النص الأصلي
+                document.getElementById("passwordPopup").style.display = 'none'; // إخفاء نافذة كلمة المرور
+                initializeContent(); // استدعاء الدالة لبدء التنفيذ
+            } else {
+                alert("Incorrect password!"); // إذا كانت كلمة المرور غير صحيحة
+                document.getElementById("welcomeText").innerText = reversedText; // إظهار النص المعكوس
+            }
         }
 
         function initializeContent() {
             const contentDiv = document.getElementById("content");
             const images = [
-                
-                "https://i.ibb.co/wCYvZcP/vim.png",
-                "https://i.postimg.cc/X7QgkYvd/1.png",
-                "https://i.postimg.cc/SKz74Lff/2.png",
-                "https://i.postimg.cc/vBh1wDkv/4.png",
-                "https://i.postimg.cc/v8P1PgWY/5.png",
-                "https://i.imgur.com/i9zo7Um.png",
-                "https://i.imgur.com/xqj9HKm.png",
-                "https://i.ibb.co/0fSXwbh/7.png",
-                "https://i.ibb.co/PY249MP/8.png",
-                "https://i.postimg.cc/j2zRY1DY/9.png",
-                "https://i.ibb.co/mrswcrR/9.png",
-                "https://i.ibb.co/JpV173Y/10.png",
-                "https://i.ibb.co/zXTm7LB/11.png",
-                "https://i.postimg.cc/02BVqNqx/12.png",
-                "https://i.postimg.cc/CMvNjK5D/13.png",
-                "https://i.ibb.co/yX3mWqw/14.png",
-                "https://i.ibb.co/yVwvTxq/15.png",
-                "https://i.imgur.com/tKmSXZI.png",
-                "https://i.ibb.co/7NkRJXX/16-2.png",
-                "https://i.postimg.cc/C1hG8yVm/17.png",
-                "https://i.ibb.co/BCYnsvn/18.png",
-                "https://i.ibb.co/P6jfqg2/19.png",
-                "https://i.imgur.com/YzuaOVw.png",
-                "https://i.ibb.co/G9P0rnM/21.png",
-                "https://i.ibb.co/LNNxQmz/22.png",
-                "https://i.ibb.co/BgJWtrF/23.png",
-                "https://i.ibb.co/D7B7dHc/24.png",
-                "https://i.ibb.co/9HRMWgx/25-One-Of-My-Customers1.png",
-                "https://i.ibb.co/L56kSnd/26-One-Of-My-Customers2.png",
-                "https://i.ibb.co/xHPYHtQ/prines.png",
-                "https://i.ibb.co/dJq6zz8/mela.png",
-                "https://i.ibb.co/w4vVhSW/adkmroof.png",
-                "https://i.ibb.co/WFhnXbH/methods.png",
-                "https://i.ibb.co/TwvGKf7/ind-Methods.png"
+                "https://i.ibb.co/wCYvZcP/vim.png", "https://i.postimg.cc/X7QgkYvd/1.png", 
+                "https://i.postimg.cc/SKz74Lff/2.png", "https://i.postimg.cc/vBh1wDkv/4.png", 
+                "https://i.postimg.cc/v8P1PgWY/5.png", "https://i.imgur.com/i9zo7Um.png",
+                "https://i.imgur.com/xqj9HKm.png", "https://i.ibb.co/0fSXwbh/7.png", 
+                "https://i.ibb.co/PY249MP/8.png", "https://i.postimg.cc/j2zRY1DY/9.png", 
+                "https://i.ibb.co/mrswcrR/9.png", "https://i.ibb.co/JpV173Y/10.png", 
+                "https://i.ibb.co/zXTm7LB/11.png", "https://i.postimg.cc/02BVqNqx/12.png", 
+                "https://i.postimg.cc/CMvNjK5D/13.png", "https://i.ibb.co/yX3mWqw/14.png", 
+                "https://i.ibb.co/yVwvTxq/15.png", "https://i.imgur.com/tKmSXZI.png", 
+                "https://i.ibb.co/7NkRJXX/16-2.png", "https://i.postimg.cc/C1hG8yVm/17.png", 
+                "https://i.ibb.co/BCYnsvn/18.png", "https://i.ibb.co/P6jfqg2/19.png", 
+                "https://i.imgur.com/YzuaOVw.png", "https://i.ibb.co/G9P0rnM/21.png", 
+                "https://i.ibb.co/LNNxQmz/22.png", "https://i.ibb.co/BgJWtrF/23.png", 
+                "https://i.ibb.co/D7B7dHc/24.png", "https://i.ibb.co/9HRMWgx/25-One-Of-My-Customers1.png", 
+                "https://i.ibb.co/L56kSnd/26-One-Of-My-Customers2.png", "https://i.ibb.co/xHPYHtQ/prines.png", 
+                "https://i.ibb.co/dJq6zz8/mela.png", "https://i.ibb.co/w4vVhSW/adkmroof.png", 
+                "https://i.ibb.co/WFhnXbH/methods.png", "https://i.ibb.co/TwvGKf7/ind-Methods.png"
             ];
 
-            // البحث عن جميع الصور في الصفحة وفك تشفيرها تلقائيًا عند تحميلها
-            images.forEach(imageSrc => {
-                const img = document.createElement('img'); // إضافة عنصر صورة جديد
-                img.src = imageSrc; // تحديد مصدر الصورة
-                img.alt = "Image";
-                contentDiv.appendChild(img); // إضافة الصورة إلى الحاوية
+            // تقسيم الصور على دفعات لتجنب الثقل المفاجئ
+            let batchSize = 5; // عدد الصور في كل دفعة
+            let currentIndex = 0;
 
-                img.crossOrigin = "Anonymous"; // للسماح بتحميل الصورة من نطاق مختلف
-                img.addEventListener('load', function() {
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+            function loadNextBatch() {
+                if (currentIndex >= images.length) return; // تم تحميل كل الصور
 
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    ctx.drawImage(img, 0, 0);
+                for (let i = 0; i < batchSize && currentIndex < images.length; i++) {
+                    const imageSrc = images[currentIndex];
+                    const img = new Image(); // إنشاء عنصر صورة جديد
+                    img.src = imageSrc; // تحديد مصدر الصورة
+                    img.crossOrigin = "Anonymous"; // للسماح بتحميل الصورة من نطاق مختلف
+                    img.addEventListener('load', function() {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
-                    // فك تشفير الصورة
-                    decryptImage(ctx, canvas, img);
-                });
-            });
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+
+                        // فك تشفير الصورة
+                        decryptImage(ctx, canvas, img);
+                    });
+
+                    contentDiv.appendChild(img); // إضافة الصورة إلى الحاوية
+                    currentIndex++; // الانتقال للصورة التالية
+                }
+
+                // تحميل الدفعة التالية بعد فترة صغيرة لتجنب الثقل
+                setTimeout(loadNextBatch, 100);
+            }
+
+            // بدء تحميل الصور على دفعات
+            loadNextBatch();
 
             // إضافة نصوص الاتصال في الأسفل
             const contactHeader = document.createElement('h2');
